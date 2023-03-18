@@ -7,11 +7,11 @@ Godot's document also have [guides](https://docs.godotengine.org/en/latest/contr
 You will need to build a custom export template to reduce the engine's binary lib size. After here is a step-by-step instruction for Android platform, my release APK size for all 4 architectures is **40MB** after these steps:
 
 1. Clone [Godot repository](https://github.com/godotengine/godot) then switch to your current using version if needed.
- 2. Install [Scons](https://scons.org/pages/download.html), the buildsystem that being used for Godot. ([Godot's official document](https://docs.godotengine.org/en/3.1/development/compiling/introduction_to_the_buildsystem.html))
- 3. Using Scons to build the custom export template ([Godot's official document](https://docs.godotengine.org/en/latest/contributing/development/compiling/compiling_for_android.html#doc-compiling-for-android)). The basic build command is:
+2. Install [Scons](https://scons.org/pages/download.html), the buildsystem that being used for Godot. ([Godot's official document](https://docs.godotengine.org/en/3.1/development/compiling/introduction_to_the_buildsystem.html))
+3. Using Scons to build the custom export template ([Godot's official document](https://docs.godotengine.org/en/latest/contributing/development/compiling/compiling_for_android.html#doc-compiling-for-android)). The basic build command is:
  `scons platform=<platform> target=debug/release_debug/release`
  and we could add more params to this to reduce the output size. For a list of available params, run this command `scons`.
-> TLDR: Here is my final build command for a arm64 export template of an simple 2D Android game:
+> Here is my final build command for a arm64 export template of an simple 2D Android game:
 > `scons platform=android target=template_release arch=arm64v8      optimize=size disable_advanced_gui=yes disable_3d=yes tools=no minizip=no  deprecated=no module_bmp_enabled=no module_bullet_enabled=no module_dds_enabled=no module_enet_enabled=no module_basis_universal_enabled=no module_jsonrpc_enabled=no module_lightmapper_rd_enabled=no module_mbedtls_enabled=no module_multiplayer_enabled=no module_msdfgen_enabled=no module_navigation_enabled=no module_noise_enabled=no module_ogg_enabled=no module_raycast_enabled=no module_regex_enabled=no module_squish_enabled=no module_svg_enabled=no module_text_server_fb_enabled=yes module_text_server_adv_enabled=no module_tga_enabled=no module_theora_enabled=no module_upnp_enabled=no module_webrtc_enabled=no module_websocket_enabled=no build_profile=./custom.build`
 > 
 > You could find how the build script handle these params in `./SConstruct` file
