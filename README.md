@@ -10,9 +10,9 @@ You will need to build a custom export template to reduce the engine's binary li
 2. Install [Scons](https://scons.org/pages/download.html), the buildsystem that being used for Godot. ([Godot's official document](https://docs.godotengine.org/en/3.1/development/compiling/introduction_to_the_buildsystem.html))
 3. Using Scons to build the custom export template ([Godot's official document](https://docs.godotengine.org/en/latest/contributing/development/compiling/compiling_for_android.html#doc-compiling-for-android)). The basic build command is:
  `scons platform=<platform> target=debug/release_debug/release`
- and we could add more params to this to reduce the output size. For a list of available params, run this command `scons`.
+ and we could add more params to this to reduce the output size. For a list of available params, run the command `scons`.
 > Here is my final build command for a arm64 export template of an simple 2D Android game:
-> `scons platform=android target=template_release arch=arm64v8      optimize=size disable_advanced_gui=yes disable_3d=yes tools=no minizip=no  deprecated=no module_bmp_enabled=no module_bullet_enabled=no module_dds_enabled=no module_enet_enabled=no module_basis_universal_enabled=no module_jsonrpc_enabled=no module_lightmapper_rd_enabled=no module_mbedtls_enabled=no module_multiplayer_enabled=no module_msdfgen_enabled=no module_navigation_enabled=no module_noise_enabled=no module_ogg_enabled=no module_raycast_enabled=no module_regex_enabled=no module_squish_enabled=no module_svg_enabled=no module_text_server_fb_enabled=yes module_text_server_adv_enabled=no module_tga_enabled=no module_theora_enabled=no module_upnp_enabled=no module_webrtc_enabled=no module_websocket_enabled=no build_profile=./custom.build`
+> `scons platform=android target=template_release arch=arm64v8 optimize=size disable_advanced_gui=yes disable_3d=yes tools=no minizip=no module_bmp_enabled=no module_bullet_enabled=no module_dds_enabled=no module_enet_enabled=no module_basis_universal_enabled=no module_jsonrpc_enabled=no module_lightmapper_rd_enabled=no module_mbedtls_enabled=no module_multiplayer_enabled=no module_msdfgen_enabled=no module_navigation_enabled=no module_noise_enabled=no module_ogg_enabled=no module_raycast_enabled=no module_regex_enabled=no module_squish_enabled=no module_svg_enabled=no module_tga_enabled=no module_theora_enabled=no module_upnp_enabled=no module_webrtc_enabled=no module_websocket_enabled=no build_profile=./custom.build`
 > 
 > You could find how the build script handle these params in `./SConstruct` file
 
@@ -23,9 +23,10 @@ You will need to build a custom export template to reduce the engine's binary li
 - `build_profile=<Path to build configuration profile>` will use a build configuration profile that allow you to disable classes in Godot engine.
     -  To create one, open Godot Editor and go to **Project > Customize Engine Build Configuration…**. After uncheck the unwanted class, click **Save As** to save the file.
 4. The build command must be called once for each architecture that include inside the build. You could find the out put `.so` file in `./platform/android/java/lib/libs`
-5. Navigate to `platform/android/java` and call `gradlew  generateGodotTemplates` to get your custom export template.
+5. Navigate to `platform/android/java` and call `gradlew generateGodotTemplates` to get your custom export template.
 6. Move the export template from `.\bin\` to Godot's template folder ([Official document](https://docs.godotengine.org/en/latest/contributing/development/compiling/compiling_for_android.html#using-the-export-templates)):
     - Windows: `%APPDATA%\Godot\export_templates\<version>\` 
+    - Steam: `<Steam folder>\steamapps\common\Godot Engine\editor_data\export_templates\<version>\`
     > I'm using Godot 4.0 in Windows so I copied to `C:\Users\<user name>\AppData\Roaming\Godot\export_templates\4.0.stable`
     - Linux: `$HOME/.local/share/godot/export_templates/<version>/`
     - MacOS: `$HOME/Library/Application Support/Godot/export_templates/<version>/`
